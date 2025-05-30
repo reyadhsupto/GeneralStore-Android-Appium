@@ -3,6 +3,7 @@ package Pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.appium.java_client.AppiumBy;
@@ -51,8 +52,18 @@ public class FormPage extends BasePage{
 		ClickElement(letShop);
 	}
 	
-	public String checkNextPage() {
-		return GetElement(nextPage).getDomProperty("text");
+//	public boolean checkNextPage(String expectedText) {
+//		return GetElement(nextPage).getText().trim().equalsIgnoreCase(expectedText);
+//	}
+	
+	public boolean checkNextPage(String expectedText) {
+	    try {
+	        WebElement titleElement = wait.until(ExpectedConditions.presenceOfElementLocated(nextPage));
+	        return titleElement.getText().trim().equalsIgnoreCase(expectedText);
+	    } catch (Exception e) {
+	        System.out.println(e.getMessage());
+	        return false;
+	    }
 	}
 	
 	public boolean checkNameError() {
@@ -62,7 +73,4 @@ public class FormPage extends BasePage{
 	public boolean isCountrySelected(String name) {
 		return GetElement(dropdown).getText().trim().equals(name);
 	}
-	
-	
-
 }
