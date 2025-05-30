@@ -28,8 +28,7 @@ public class TestFormPage extends baseTest{
         form.fillName(name);
         form.checkGender();
         form.letsShop();
-//        String actualText = form.checkNextPage();
-//        Assert.assertEquals(actualText, nextPageText, "User no redirected to products page upon form fillup!");
+        Assert.assertTrue(form.checkNextPage(nextPageText), "User no redirected to products page upon form fillup!");
     }
 
 }
