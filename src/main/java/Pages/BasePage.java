@@ -3,6 +3,7 @@ package Pages;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -74,6 +75,11 @@ public class BasePage {
 	// Overload: GetElement with By
 	public WebElement GetElement(By locator) {
 		return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+	}
+	
+	//Get multiple elements
+	public List<WebElement> GetElements(By locator) {
+		return wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator));
 	}
 	
 	//Long Press an element
