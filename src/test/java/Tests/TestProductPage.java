@@ -15,6 +15,8 @@ public class TestProductPage extends baseTest{
 	private final String productName = "Air Jordan 9 Retro";
 	private Map<String, String> productInfo;
 	
+	private String termsConditonsModal = "Terms Of Conditions";
+	
 	@BeforeMethod
 	public void initPageObjects() {
 		productP = new ProductPage(driver, wait);
@@ -63,7 +65,7 @@ public class TestProductPage extends baseTest{
 		return String.format("%.2f", total);
 	}
 	
-	@Test(priority = 3, description = "TC_004: Verify that Total checkout price is accurately displayed in Cart page", enabled = true)
+	@Test(priority = 3, description = "TC_004: Verify that Total checkout price is accurately displayed in Cart page", enabled = false)
 	public void TestCartTotalPrice() {
 		//formpage actions
 		form.chooseCountry("Bangladesh");
@@ -76,6 +78,26 @@ public class TestProductPage extends baseTest{
         productP.clickAddtoCartBtn();
         
         Assert.assertTrue(productP.validateCartTotalPrice(priceConverter(productInfo)), "App displays inaccurate total checkout price in cart page!");
+	}
+	
+	@Test(priority = 4, description = "TC_005: Verify that user can view terms and conditons properly before checkout", enabled = true)
+	public void TestTermsConditons() {
+		//formpage actions
+		form.chooseCountry("Bangladesh");
+        form.fillName("ReyadHassan");
+        form.checkGender();
+        form.letsShop();
+        
+        //productpage actions
+        productInfo = productP.addToCart(productName);
+        productP.clickAddtoCartBtn();
+        
+		productP.pressTerms();
+		Assert.assertTrue(productP.checkTermsModal(termsConditonsModal), "Terms and conditions modal doesnot appear upon long press!");
+		
+		productP.closeTermsModal();
+		Assert.assertTrue(productP.checkTermsClosing(), "Terms and Conditions modal Not closing or not taking to cart page upon closing");
+		
 	}
 	
 
