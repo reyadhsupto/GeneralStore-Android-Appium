@@ -25,6 +25,11 @@ public class ProductPage extends BasePage{
 	private final By cartProdcutPrice = AppiumBy.id("com.androidsample.generalstore:id/productPrice");
 	private final By carttotalPrice = AppiumBy.id("com.androidsample.generalstore:id/totalAmountLbl");
 	
+	private final By termsConditions = AppiumBy.id("com.androidsample.generalstore:id/termsButton");
+	private final By termsModal = AppiumBy.id("com.androidsample.generalstore:id/alertTitle");
+	private final By termsConditonsClosewBtn = AppiumBy.xpath("//android.widget.Button[@text='CLOSE']");
+	private final By cartPageTile = AppiumBy.id("com.androidsample.generalstore:id/toolbar_title");
+	
 	
 	public ProductPage(AppiumDriver driver, WebDriverWait wait) {
 		this.driver = driver;
@@ -100,8 +105,6 @@ public class ProductPage extends BasePage{
 	public boolean validateCartTotalPrice(String expectedTotalPrice) {
 		String actualTotal = driver.findElement(carttotalPrice).getText().trim().replaceAll("[^\\d.]", "");
 
-//	    String expectedTotal = expectedTotalPrice.replaceAll("[^\\d.]", "");
-
 	    try {
 	        double actual = Double.parseDouble(actualTotal);
 	        double expected = Double.parseDouble(expectedTotalPrice);
@@ -117,6 +120,22 @@ public class ProductPage extends BasePage{
 	    }
 
 	    return true;
+	}
+	
+	public void pressTerms() {
+		LongPress(termsConditions, 3);
+	}
+	
+	public boolean checkTermsModal(String text) {
+		return (GetElement(termsModal).getText().trim()).equals(text);
+	}
+	
+	public void closeTermsModal() {
+		ClickElement(termsConditonsClosewBtn);
+	}
+	
+	public boolean checkTermsClosing() {
+		return (GetElement(cartPageTile).getText().trim()).equals("Cart");
 	}
 
 }
