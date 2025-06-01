@@ -37,9 +37,9 @@ allure-results/
 allure-report/
 
 # === Appium / Android Specific ===
-*.apk
-*.apks
-*.aab
+# *.apk
+# *.apks
+# *.aab
 
 # === Logs / temp ===
 *.tmp
